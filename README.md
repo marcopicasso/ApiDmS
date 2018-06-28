@@ -1,4 +1,4 @@
-# Smeet_2.0
+# ApiDocumentManagemtSystem
 Open Source Document Management Sytem.
 
 Restful Web Api made with Asp.Net Core and React.js integrated with sql database.
