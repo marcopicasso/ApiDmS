@@ -1,23 +1,21 @@
 using System;
+using System.Collections.Generic;
 
 namespace ApiDmS.Models
 {
     public class Document
     {
-        public int ID { get; set; }
+        public int documentID { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         public DateTime uploadDate { get; set; }
         public long path { get; set; }
         public bool active { get; set; }
-        public string userCreat { get; set; }
+        public string userCreate { get; set; }
 
-        public int accessLevelAllowedID { get; set; }
-        public int[] tagId { get; set; }
-        public int bankID { get; set; }
+        public List<accessLevelAllowed> accessLevelAlloweds { get; set; }
+        public List<Tag> Tags { get; set; }
+        public int Category { get; set; }
 
-        public virtual accessLevelAllowed accessLevelAllowed { get; set; }
-        public virtual Tag tag { get; set; }
-        public virtual Bank bank { get; set; }
     }
 }
