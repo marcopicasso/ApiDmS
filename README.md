@@ -10,4 +10,3 @@ It involves also the construction of an internal search engine with custom filte
 the project is under development and any idea, proposal or collaboration is welcome!
 
 # Work in progress...
-# Master Upload soon
