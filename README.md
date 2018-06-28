@@ -8,3 +8,6 @@ The main use refers to archiving and classification of documents in pdf format, 
 It involves also the construction of an internal search engine with custom filters.
 
 the project is under development and any idea, proposal or collaboration is welcome!
+
+# Work in progress...
+# Master Upload soon
