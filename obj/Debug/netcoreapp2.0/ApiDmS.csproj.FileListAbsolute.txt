@@ -1,0 +1,11 @@
+C:\Users\Marco\desktop\vsprojects\ApiDmS\bin\Debug\netcoreapp2.0\ApiDmS.deps.json
+C:\Users\Marco\desktop\vsprojects\ApiDmS\bin\Debug\netcoreapp2.0\ApiDmS.runtimeconfig.json
+C:\Users\Marco\desktop\vsprojects\ApiDmS\bin\Debug\netcoreapp2.0\ApiDmS.runtimeconfig.dev.json
+C:\Users\Marco\desktop\vsprojects\ApiDmS\bin\Debug\netcoreapp2.0\ApiDmS.dll
+C:\Users\Marco\desktop\vsprojects\ApiDmS\bin\Debug\netcoreapp2.0\ApiDmS.pdb
+C:\Users\Marco\desktop\vsprojects\ApiDmS\obj\Debug\netcoreapp2.0\ApiDmS.csprojAssemblyReference.cache
+C:\Users\Marco\desktop\vsprojects\ApiDmS\obj\Debug\netcoreapp2.0\ApiDmS.csproj.CoreCompileInputs.cache
+C:\Users\Marco\desktop\vsprojects\ApiDmS\obj\Debug\netcoreapp2.0\ApiDmS.AssemblyInfoInputs.cache
+C:\Users\Marco\desktop\vsprojects\ApiDmS\obj\Debug\netcoreapp2.0\ApiDmS.AssemblyInfo.cs
+C:\Users\Marco\desktop\vsprojects\ApiDmS\obj\Debug\netcoreapp2.0\ApiDmS.dll
+C:\Users\Marco\desktop\vsprojects\ApiDmS\obj\Debug\netcoreapp2.0\ApiDmS.pdb
