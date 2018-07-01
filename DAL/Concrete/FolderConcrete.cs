@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiDmS.DAL.Concrete
 {
-    public class FolderConcrete 
+    public class FolderConcrete : IFolderRepository, IDisposable 
         {
         private ApplicationDbContext context;
 

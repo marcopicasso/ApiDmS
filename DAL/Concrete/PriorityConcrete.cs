@@ -1,3 +1,4 @@
+using ApiDmS.DAL.IRepository;
 using ApiDmS.Models;
 using ApiDmS.Models.Data;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace ApiDmS.DAL.Concrete
 {
-    public class PriorityConcrete
+    public class PriorityConcrete : IPriorityRepository, IDisposable
     {
         private ApplicationDbContext context;
 
@@ -16,7 +17,7 @@ namespace ApiDmS.DAL.Concrete
             this.context = context;
         }
 
-        public IEnumerable<Priority> GetDocuments()
+        public IEnumerable<Priority> GetPriorities()
         {
             return context.Priorities.ToList();
         }

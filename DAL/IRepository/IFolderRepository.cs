@@ -10,7 +10,7 @@ namespace ApiDmS.DAL.IRepository
         Folder GetFolderByID(int folderID);
         void InsertFolder(Folder folder);
         void DeleteFolder(int folderID);
-        void Updatefolder(Folder folder);
+        void UpdateFolder(Folder folder);
         void Save();
          
     }

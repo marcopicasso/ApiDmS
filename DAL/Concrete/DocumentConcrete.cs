@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiDmS.DAL.Concrete
 {
-    public class DocumentConcrete
+    public class DocumentConcrete : IDocumentRepository, IDisposable
     {
         private ApplicationDbContext context;
 
@@ -22,7 +22,7 @@ namespace ApiDmS.DAL.Concrete
             return context.Documents.ToList();
         }
 
-        public Document GetDocumentsByID(int id)
+        public Document GetDocumentByID(int id)
         {
             return context.Documents.Find(id);
         }
