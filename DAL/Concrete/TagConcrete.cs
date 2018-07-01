@@ -8,39 +8,39 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiDmS.DAL.Concrete
 {
-    public class accessLevelAllowedConcrete : IaccessLevelAllowed, IDisposable
+    public class TagConcrete : ITagRepository, IDisposable
     {
         private ApplicationDbContext context;
 
-        public accessLevelAllowedConcrete(ApplicationDbContext context)
+        public TagConcrete(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<accessLevelAllowed> GetAccessLevels()
+        public IEnumerable<Tag> GetTags()
         {
-            return context.accessLevelAlloweds.ToList();
+            return context.Tags.ToList();
         }
 
-        public accessLevelAllowed GetAccesslevelByID(int id)
+        public Tag GetTagByID(int id)
         {
-            return context.accessLevelAlloweds.Find(id);
+            return context.Tags.Find(id);
         }
 
-        public void InsertAccessLevel(accessLevelAllowed accessLevelAllowed)
+        public void InsertTag(Tag tag)
         {
-            context.accessLevelAlloweds.Add(accessLevelAllowed);
+            context.Tags.Add(tag);
         }
 
-        public void DeleteAccessLevel(int accessLevelAllowedID)
+        public void DeleteTag(int tagID)
         {
-            accessLevelAllowed accessLevelAllowed = context.accessLevelAlloweds.Find(accessLevelAllowedID);
-            context.accessLevelAlloweds.Remove(accessLevelAllowed);
+            Tag tag = context.Tags.Find(tagID);
+            context.Tags.Remove(tag);
         }
 
-        public void UpdateAccessLevel(accessLevelAllowed accessLevelAllowed)
+        public void UpdateTag(Tag tag)
         {
-            context.Entry(accessLevelAllowed).State = EntityState.Modified;
+            context.Entry(tag).State = EntityState.Modified;
         }
 
         public void Save()

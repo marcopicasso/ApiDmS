@@ -8,39 +8,39 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiDmS.DAL.Concrete
 {
-    public class accessLevelAllowedConcrete : IaccessLevelAllowed, IDisposable
+    public class DocumentConcrete
     {
         private ApplicationDbContext context;
 
-        public accessLevelAllowedConcrete(ApplicationDbContext context)
+        public DocumentConcrete(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<accessLevelAllowed> GetAccessLevels()
+        public IEnumerable<Document> GetDocuments()
         {
-            return context.accessLevelAlloweds.ToList();
+            return context.Documents.ToList();
         }
 
-        public accessLevelAllowed GetAccesslevelByID(int id)
+        public Document GetDocumentsByID(int id)
         {
-            return context.accessLevelAlloweds.Find(id);
+            return context.Documents.Find(id);
         }
 
-        public void InsertAccessLevel(accessLevelAllowed accessLevelAllowed)
+        public void InsertDocument(Document document)
         {
-            context.accessLevelAlloweds.Add(accessLevelAllowed);
+            context.Documents.Add(document);
         }
 
-        public void DeleteAccessLevel(int accessLevelAllowedID)
+        public void DeleteDocument(int documentID)
         {
-            accessLevelAllowed accessLevelAllowed = context.accessLevelAlloweds.Find(accessLevelAllowedID);
-            context.accessLevelAlloweds.Remove(accessLevelAllowed);
+            Document document = context.Documents.Find(documentID);
+            context.Documents.Remove(document);
         }
 
-        public void UpdateAccessLevel(accessLevelAllowed accessLevelAllowed)
+        public void UpdateDocument(Document document)
         {
-            context.Entry(accessLevelAllowed).State = EntityState.Modified;
+            context.Entry(document).State = EntityState.Modified;
         }
 
         public void Save()

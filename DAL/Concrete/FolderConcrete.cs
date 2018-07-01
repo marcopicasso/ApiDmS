@@ -8,39 +8,39 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiDmS.DAL.Concrete
 {
-    public class accessLevelAllowedConcrete : IaccessLevelAllowed, IDisposable
-    {
+    public class FolderConcrete 
+        {
         private ApplicationDbContext context;
 
-        public accessLevelAllowedConcrete(ApplicationDbContext context)
+        public FolderConcrete(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<accessLevelAllowed> GetAccessLevels()
+        public IEnumerable<Folder> GetFolders()
         {
-            return context.accessLevelAlloweds.ToList();
+            return context.Folders.ToList();
         }
 
-        public accessLevelAllowed GetAccesslevelByID(int id)
+        public Folder GetFolderByID(int id)
         {
-            return context.accessLevelAlloweds.Find(id);
+            return context.Folders.Find(id);
         }
 
-        public void InsertAccessLevel(accessLevelAllowed accessLevelAllowed)
+        public void InsertFolder(Folder folder)
         {
-            context.accessLevelAlloweds.Add(accessLevelAllowed);
+            context.Folders.Add(folder);
         }
 
-        public void DeleteAccessLevel(int accessLevelAllowedID)
+        public void DeleteFolder(int folderID)
         {
-            accessLevelAllowed accessLevelAllowed = context.accessLevelAlloweds.Find(accessLevelAllowedID);
-            context.accessLevelAlloweds.Remove(accessLevelAllowed);
+            Folder folder = context.Folders.Find(folderID);
+            context.Folders.Remove(folder);
         }
 
-        public void UpdateAccessLevel(accessLevelAllowed accessLevelAllowed)
+        public void UpdateFolder(Folder folder)
         {
-            context.Entry(accessLevelAllowed).State = EntityState.Modified;
+            context.Entry(folder).State = EntityState.Modified;
         }
 
         public void Save()

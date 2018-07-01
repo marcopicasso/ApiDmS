@@ -8,39 +8,39 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiDmS.DAL.Concrete
 {
-    public class accessLevelAllowedConcrete : IaccessLevelAllowed, IDisposable
+    public class CategoryConcrete : ICategoryRepository, IDisposable
     {
         private ApplicationDbContext context;
 
-        public accessLevelAllowedConcrete(ApplicationDbContext context)
+        public CategoryConcrete(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<accessLevelAllowed> GetAccessLevels()
+        public IEnumerable<Category> GetCategories()
         {
-            return context.accessLevelAlloweds.ToList();
+            return context.Categories.ToList();
         }
 
-        public accessLevelAllowed GetAccesslevelByID(int id)
+        public Category GetCategoryByID(int id)
         {
-            return context.accessLevelAlloweds.Find(id);
+            return context.Categories.Find(id);
         }
 
-        public void InsertAccessLevel(accessLevelAllowed accessLevelAllowed)
+        public void InsertCategory(Category category)
         {
-            context.accessLevelAlloweds.Add(accessLevelAllowed);
+            context.Categories.Add(category);
         }
 
-        public void DeleteAccessLevel(int accessLevelAllowedID)
+        public void DeleteCategory(int categoryID)
         {
-            accessLevelAllowed accessLevelAllowed = context.accessLevelAlloweds.Find(accessLevelAllowedID);
-            context.accessLevelAlloweds.Remove(accessLevelAllowed);
+            Category category = context.Categories.Find(categoryID);
+            context.Categories.Remove(category);
         }
 
-        public void UpdateAccessLevel(accessLevelAllowed accessLevelAllowed)
+        public void UpdateCategory(Category category)
         {
-            context.Entry(accessLevelAllowed).State = EntityState.Modified;
+            context.Entry(category).State = EntityState.Modified;
         }
 
         public void Save()
