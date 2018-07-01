@@ -6,6 +6,12 @@ namespace ApiDmS.Models
     {
         public int TagiD { get; set; }
         public string tagName { get; set; }
-        public List<Document> Documents { get; set; }
+        
+
+        //relationship
+        public List<Document> documents { get; set; }
+
+        //navigation properties
+        public Document Document { get; set; }
     }
 }

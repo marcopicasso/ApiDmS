@@ -13,6 +13,7 @@ namespace ApiDmS.Models.Data
     public DbSet<Tag> Tags { get; set; }
     public DbSet<accessLevelAllowed> accessLevelAlloweds { get; set; }
     public DbSet<Priority> Priorities { get; set; }
+    public DbSet<Folder> Folders { get; set; }
         
     }
 }
