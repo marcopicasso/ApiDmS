@@ -19,46 +19,28 @@ namespace ApiDmS.Controllers {
             _hostingenvironment = hostingenvironment;
         }
 
-        [HttpPost ("upload")]
-        public IActionResult Post (Document doc) {
-
-            string este = Path.GetExtension (doc.FileToUpload.FileName);
-            
-            var newFileName = string.Empty;
-
-            var fileName = string.Empty;
-
-            var files = HttpContext.Request.Form.Files;
-            foreach (var file in files) {
-                
+        [HttpPost ("upload"), DisableRequestSizeLimit]
+        public ActionResult UploadFile ([FromForm] Document doc) {
+            try {
+                var file = Request.Form.Files[0];
+                string folderName = doc.folderID.ToString();
+                string webRootPath = _hostingenvironment.WebRootPath;
+                string newPath = Path.Combine (webRootPath, folderName);
+                var save = newPath;
+                if (!Directory.Exists (newPath)) {
+                    Directory.CreateDirectory (newPath);
+                }
                 if (file.Length > 0) {
-                    
-                    //Getting FileName
-                    fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    //Getting file Extension
-                    var FileExt = Path.GetExtension(fileName);
-
-                    //Assigning Unique Filename (Guid)
-                    var myUniqueFileName = Convert.ToString (Guid.NewGuid ());
-
-                    // concating  FileName + FileExtension
-                    newFileName = myUniqueFileName + FileExt;
-
-                    // Combines two strings into a path.
-                    fileName = Path.Combine (_hostingenvironment.WebRootPath, "upload") + $@"\{newFileName}";
-
-                    //Store path of folder in database
-                    //PathDB = "demoImages/" + newFileName;
-
-                    using (FileStream fs = System.IO.File.Create (fileName)) {
-                        file.CopyTo(fs);
-                        fs.Flush ();
+                    string fileName = ContentDispositionHeaderValue.Parse (file.ContentDisposition).FileName.Trim ('"');
+                    string fullPath = Path.Combine (newPath, fileName);
+                    using (var stream = new FileStream (fullPath, FileMode.Create)) {
+                        file.CopyTo (stream);
                     }
                 }
+                return Json ("Upload Successful.");
+            } catch (System.Exception ex) {
+                return Json ("Upload Failed: " + ex.Message);
             }
-
-            return Ok();
         }
-
     }
 }
