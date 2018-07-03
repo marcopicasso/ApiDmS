@@ -6,7 +6,7 @@ namespace ApiDmS.Models
     {
         public int folderID { get; set; }
         public string name { get; set; }
-        public long path { get; set; }
+        public string path { get; set; }
 
         //relationship
         public List<Document> documents { get; set; }

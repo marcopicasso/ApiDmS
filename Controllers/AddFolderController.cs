@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using ApiDmS.Models;
 using ApiDmS.Models.Data;
@@ -11,14 +12,14 @@ namespace ApiDmS.Controllers {
         private ApplicationDbContext _context;
 
         public AddFolderController (IHostingEnvironment hostingenvironment, ApplicationDbContext context) {
-            
+
             _hostingenvironment = hostingenvironment;
             _context = context;
-           
+
         }
 
         [HttpPost ("newfolder")]
-        public ActionResult post ([FromForm]Folder folder) {
+        public ActionResult post ([FromForm] Folder folder) {
 
             //get the name of the new folder from the form
             string folderName = folder.name.ToString ();
@@ -29,10 +30,25 @@ namespace ApiDmS.Controllers {
 
             //check if folder exist and create it if not
             if (!Directory.Exists (newPath)) {
-                    Directory.CreateDirectory (newPath);
-                }
+                Directory.CreateDirectory (newPath);
+            }
+            //create new folder     
+            Folder fol = new Folder {
+                name = folderName,
+                path = newPath
+            };
 
-            return Ok(newPath);
+            //add in database
+            _context.Folders.Add (fol);
+
+            try {
+                _context.SaveChanges();
+            } catch (Exception e) {
+                Console.WriteLine (e);
+
+            }
+
+            return Ok ("Path created");
         }
 
     }
