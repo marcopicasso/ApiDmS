@@ -15,8 +15,7 @@ namespace ApiDmS
 {
     public class Startup
     {
-        private readonly string name = "";
-
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,7 +27,7 @@ namespace ApiDmS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString(name)));
+                options => options.UseSqlServer(Configuration.GetConnectionString("defaultconnection")));
             services.AddMvc();
         }
 
