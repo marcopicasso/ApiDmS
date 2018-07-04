@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using ApiDmS.Models;
 using ApiDmS.Models.Data;
 using Microsoft.AspNetCore.Hosting;
@@ -19,7 +20,7 @@ namespace ApiDmS.Controllers {
         }
 
         [HttpPost ("newfolder")]
-        public ActionResult post ([FromForm] Folder folder) {
+        public async Task<ActionResult> post ([FromForm] Folder folder) {
 
             //get the name of the new folder from the form
             string folderName = folder.name.ToString ();
@@ -28,24 +29,27 @@ namespace ApiDmS.Controllers {
             //create the path
             string newPath = Path.Combine (webRootPath, folderName);
 
-            //check if folder exist and create it if not
-            if (!Directory.Exists (newPath)) {
-                Directory.CreateDirectory (newPath);
-            }
-            //create new folder     
-            Folder fol = new Folder {
-                name = folderName,
-                path = newPath
-            };
+            using (var _context = new ApplicationDbContext ()) {
+                //check if folder exist and create it if not
+                if (!Directory.Exists (newPath)) {
+                    Directory.CreateDirectory (newPath);
+                }
+                //create new folder  
+                Folder fol = new Folder {
+                    name = folderName,
+                    path = newPath
+                };
 
-            //add in database
-            _context.Folders.Add (fol);
+                //add in database
+                await _context.Folders.AddAsync (fol);
 
-            try {
-                _context.SaveChanges();
-            } catch (Exception e) {
-                Console.WriteLine (e);
+                try {
+                   await _context.SaveChangesAsync ();
+                } catch (Exception e) {
+                    
+                    Console.WriteLine (e);
 
+                }
             }
 
             return Ok ("Path created");

@@ -15,13 +15,13 @@ namespace ApiDmS.Models
         public DateTime uploadDate { get; set; }
         public string path { get; set; }
         public bool active { get; set; }
-        public string userCreate { get; set; }
+        public string userId { get; set; }
         public IFormFile FileToUpload { get; set; }
 
 
         // relationship
         public int folderID { get; set; }
-        public List<accessLevelAllowed> accessLevelAlloweds { get; set; }
+        public int accessLevel { get; set; }
         public List<Tag> Tags { get; set; }
         public int categoryID { get; set; }
 

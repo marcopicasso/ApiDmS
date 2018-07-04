@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using ApiDmS.DAL.IRepository;
 using ApiDmS.Models;
 using ApiDmS.Models.Data;
 using Microsoft.AspNetCore.Hosting;
@@ -16,33 +18,43 @@ namespace ApiDmS.Controllers {
     public class FileUploadController : Controller {
         private IHostingEnvironment _hostingenvironment;
         private ApplicationDbContext _context;
+        private readonly IDocumentRepository _IDocumentRepository;
 
-        public FileUploadController (IHostingEnvironment hostingenvironment, ApplicationDbContext context) {
-           
-            _hostingenvironment = hostingenvironment;
-            _context = context;
+        public FileUploadController (IHostingEnvironment hostingenvironment, 
+                                    ApplicationDbContext context, 
+                                    IDocumentRepository IDocumentRepository) {
+
+            _hostingenvironment  = hostingenvironment;
+            _context             = context;
+            _IDocumentRepository = IDocumentRepository;
         }
+        
 
         [HttpPost ("upload"), DisableRequestSizeLimit]
-        public ActionResult UploadFile ([FromForm] Document doc) {
+        public  async Task<ActionResult>  UploadFile ([FromForm] Document doc) {
             try {
                 var file = Request.Form.Files[0];
                 int folderId = doc.folderID;
+                string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-                var folderPath =    (from f in _context.Folders
-                                    where f.folderID == folderId 
-                                    select f).Select(f => f.path).Single().ToString();
+                using (var _context = new ApplicationDbContext ()) {
+                    var folder = _context.Folders.Single (f => f.folderID == folderId);
+                    var folderPath = folder.path;
 
-                if (file.Length > 0) {
-                    string fileName = ContentDispositionHeaderValue.Parse (file.ContentDisposition).FileName.Trim ('"');
-                    //string fullPath = Path.Combine (newPath, fileName);
-                    using (var stream = new FileStream (folderPath, FileMode.Create)) {
-                        file.CopyTo (stream);
+                    if (file.Length > 0) {
+                        string fileName = ContentDispositionHeaderValue.Parse (file.ContentDisposition).FileName.Trim ('"');
+                        using (var stream = new FileStream (folderPath, FileMode.Create)) {
+                            await file.CopyToAsync (stream);
+                        }
+
+                   
                     }
                 }
-                return Json ("Upload Successful.");
+                return Json("Upload Successful.");
+
             } catch (System.Exception ex) {
-                return Json ("Upload Failed: " + ex.Message);
+
+                return Json("Upload Failed: " + ex.Message);
             }
         }
     }
