@@ -46,7 +46,16 @@ namespace ApiDmS.Controllers {
                         using (var stream = new FileStream (folderPath, FileMode.Create)) {
                             await file.CopyToAsync (stream);
                         }
+                    //save new document    
+                    Document newdoc = new Document{
+                        title = doc.title,
+                        description = doc.description,
+                        Tags = doc.Tags,
+                        categoryID = doc.categoryID
+                    };
 
+                    await _context.AddAsync(newdoc);
+                    await _context.SaveChangesAsync();
                    
                     }
                 }
